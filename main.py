@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy()
+ma = Marshmallow()
 
 def create_app():
     # using a list comprehension and multiple assignment 
@@ -15,6 +17,9 @@ def create_app():
 
     # creating our database object! This allows us to use our ORM
     db.init_app(app)
+    
+    # creating our marshmallow object! This allows us to use schemas
+    ma.init_app(app)
 
     # import the controllers and activate the blueprints
     from controllers import registerable_controllers

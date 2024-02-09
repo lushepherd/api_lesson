@@ -9,6 +9,15 @@ from flask_jwt_extended import create_access_token
 auth = Blueprint('auth', __name__, url_prefix="/auth")
 
 
+@auth.route("/users", methods=["GET"])
+def get_users():
+    # get all the users from the database table
+    users_list = User.query.all()
+    # Convert the users from the database into a JSON format and store them in result
+    result = users_schema.dump(users_list)
+    # return the data in JSON format
+    return jsonify(result)
+
 @auth.route("/register", methods=["POST"])
 def auth_register():
     #The request data will be loaded in a user_schema converted to JSON. request needs to be imported from
